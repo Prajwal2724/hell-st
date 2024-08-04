@@ -1,0 +1,215 @@
+1
+
+#include <stdio.h>
+int main() {
+int locks, stocks, barrels, tlocks, tstocks, tbarrels;
+float lprice, sprice, bprice,  sales, comm;
+int c1, c2, c3, temp;
+lprice = 45.0;
+sprice = 30.0;
+bprice = 25.0;
+tlocks = 0;
+tbarrels = 0;
+tstocks = 0;
+printf("Enter the number of locks and to exit the loop enter -1 for locks\n");
+scanf("%d", &locks);
+while (locks != -1) {
+c1 = (locks <= 0) || (locks > 70);
+printf("Enter the number of stocks and barrels: ");
+scanf("%d%d", &stocks, &barrels);
+c2 = (stocks <= 0 || stocks > 80);
+c3 = (barrels <= 0 || barrels > 90);
+if (c1)
+printf("Value of locks not in the range 1-70\n");
+else {
+temp = tlocks + locks;
+if (temp > 70)
+        printf("New total locks = %d not in the range 1-70\n", temp);
+else
+tlocks = temp;
+}
+printf("Total locks = %d\n", tlocks);
+if (c2)
+printf("Value of stocks not in the range 1-80\n");
+else {
+temp = tstocks + stocks;
+if (temp > 80)
+printf("New total stocks = %d not in the range 1-80\n", temp);
+else
+tstocks = temp;
+}
+printf("Total stocks = %d\n", tstocks);
+if (c3)
+printf("Value of barrels not in the range 1-90\n");
+else {
+temp = tbarrels + barrels;
+if (temp > 90)
+printf("New total barrels = %d not in the range 1-90\n", temp);
+else
+tbarrels = temp;
+}
+printf("Total barrels = %d\n", tbarrels);
+printf("Enter the number of locks and to exit the loop enter -1 for locks\n");
+scanf("%d", &locks);
+}
+printf("Total locks = %d\nTotal stocks = %d\nTotal barrels = %d\n", tlocks, tstocks, tbarrels);
+sales = lprice * tlocks + sprice * tstocks + bprice * tbarrels;
+printf("Total sales = %f\n", sales);
+if (sales > 0) {
+if (sales > 1800.0) {
+comm = 0.10 * 1000;
+comm = comm + 0.15 * 800;
+comm = comm + (0.20 * (sales - 1800));
+} else if (sales > 1000) {
+comm = 0.10 * 1000;
+comm = comm + 0.15 * (sales - 1000);
+} else {
+comm = 0.10 * sales;  // Fixed the commission for sales <= 1000
+}
+printf("The total commission is %f\n", comm);
+} else {
+printf("There is no sales\n");
+}
+return 0;
+}
+
+
+2
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+
+    int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int d, m, y, nd, nm, ny, ndays;
+
+
+
+    printf("\nEnter the date, month, year (e.g., 22, 8, 2024): ");
+    scanf("%d, %d, %d", &d, &m, &y);
+
+
+    if (y < 1812 || y > 2024) {
+        printf("Invalid input year\n");
+        exit(0);
+    }
+    if (m < 1 || m > 12) {
+            printf("Invalid input month\n");
+            exit(0);
+    }
+
+
+    ndays = month[m - 1];
+
+
+    if (m == 2) {
+        if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)) {
+            ndays = 29;
+        }
+    }
+
+
+    if (d < 1 || d > ndays) {
+        printf("Invalid input Day\n");
+        exit(0);
+    }
+
+
+    nd = d + 1;
+    nm = m;
+    ny = y;
+
+
+    if (nd > ndays) {
+        nd = 1;
+        nm++;
+        if (nm > 12) {
+            nm = 1;
+            ny++;
+        }
+    }
+
+
+    printf("\nGiven date is %d-%d-%d", d, m, y);
+    printf("\nNext date is %d-%d-%d\n", nd, nm, ny);
+
+    return 0;
+}
+
+3
+
+#include <stdio.h>
+
+int main() {
+    int a, b, c, c1, c2, c3;
+     char istriangle;
+    do {
+        printf("\nEnter 3 integers for the triangle (1 to 10): ");
+        scanf("%d%d%d", &a, &b, &c);
+
+        c1 = (a >= 1 && a <= 10);
+        c2 = (b >= 1 && b <= 10);
+        c3 = (c >= 1 && c <= 10);
+
+        if (!c1)
+            printf("The value of a=%d is not in range (1-10)\n", a);
+        if (!c2)
+            printf("The value of b=%d is not in range (1-10)\n", b);
+        if (!c3)
+            printf("The value of c=%d is not in range (1-10)\n", c);
+
+    } while (!(c1 && c2 && c3));
+
+    if (a < (b + c) && b < (a + c) && c < (a + b)) {
+        if (a == b && b == c) {
+            printf("It is an Equilateral triangle\n");
+        } else if (a != b && b != c && c != a) {
+            printf("It is a Scalene triangle\n");
+        } else {
+            printf("It is an Isosceles triangle\n");
+        }
+    } else {
+        printf("It is not a triangle\n");
+    }
+
+    return 0;
+}
+
+4
+
+#include <stdio.h>
+int bin(int x[], int low, int high, int key) {
+int mid;
+while (low <= high) {
+        mid = (low + high) / 2;
+if (x[mid] == key)
+return mid;
+if (x[mid] < key)
+low = mid + 1;
+else
+high = mid - 1;
+}
+return -1;
+}
+int main() {
+int a[20], n, key, i, s;
+printf("Enter the value of n:\n");
+scanf("%d", &n);
+if (n > 0) {
+printf("Enter %d elements in ASCENDING order\n", n);
+for (i = 0; i < n; i++) {
+scanf("%d", &a[i]);
+}
+printf("Enter the key element to be searched\n");
+scanf("%d", &key);
+s = bin(a, 0, n - 1, key);
+if (s >= 0)
+printf("Element found at index %d \n", s);
+else
+printf("Element not found\n");
+} else {
+printf("Number of elements should be greater than zero \n");
+}
+return 0;
+}
